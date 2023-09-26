@@ -2,22 +2,52 @@
 
 <?php get_header(); ?>
 
-<section id="hero" class="h-screen w-screen bg-gray-300 py-5">
+<section id="hero" class="min-h-screen w-screen bg-white py-5">
     <div class="container mx-auto">
-        <div class="grid grid-cols-3 gap-10">
-            <div class="col-span-1">
-                <div class="header">
-                    <a href="<?php get_home_url(); ?>">
-                    <h1 class="siteName font-courier text-3xl font-thin text-spencer"><?php bloginfo('name'); ?> <span class="slashLine">/</span></h1>
-                    </a>
-                </div>
-                <div class="blogPosts">
-                    
-                </div>
-            </div>
-            <div class="col-span-2">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="hidden md:block col-span-1">
+                    <div class="header">
+                        <a href="<?php echo site_url(); ?>">
+                        <h1 class="siteName font-courier text-3xl font-thin text-spencer"><?php bloginfo('name'); ?> <span class="slashLine">/</span></h1>
+                        </a>
+                    </div>
+                    <div class="blogPosts py-5">
+                        <?php 
+                            //query for Hero Page
+                            $heroQuery = new WP_Query(array(
+                                'page_id' => 34,
+                                'posts_per_page' => -1,
+                            ));
 
+                            while($heroQuery->have_posts()){
+                            $heroQuery->the_post(); ?>
+
+                            <a href="<?php the_permalink(); ?>">
+                            <h2 class="navBlogLinks font-courier text-spencer text-base py-3 uppercase"><?php the_title(); ?></h2>
+                            </a>
+                            <?php
+                                }
+                            ?>
+                    </div>
+                </div>
+                <div class="col-span-2 pt-24 md:pt-0 mx-10 md:mx-10">
+                    <?php
+                    $singlePostFrontPage = new WP_Query(array(
+                        'page_id' => 34,
+                        'posts_per_page' => 1,
+                        'order' => 'ASC',
+                    ));
+
+                    while($singlePostFrontPage->have_posts()){
+                        $singlePostFrontPage->the_post(); ?>
+
+                    <h1 class="text-3xl font-thin font-courier text-spencer pb-10"><?php the_title(); ?></h1> 
+                    <div class="text-base font-thin font-courier text-spencer leading-9"><?php the_content(); ?></div>
+
+                    <?php
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

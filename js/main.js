@@ -1,0 +1,1 @@
+jQuery(document).ready((function(t){t(".on").click((function(){t(".alert").css({transform:"translateX(0)"})})),t(".close").click((function(){t(".alert").css({transform:"translateX(150%)"})})),t(".out").click((function(){t(".alert").css({transform:"translateX(150%)"})}))}));
